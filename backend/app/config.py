@@ -1,11 +1,29 @@
 import os
 
-DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./dev.db")
-# Render supplies postgres:// URLs; SQLAlchemy needs the driver name.
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = "postgresql+psycopg://" + DATABASE_URL[len("postgres://"):]
-elif DATABASE_URL.startswith("postgresql://"):
-    DATABASE_URL = "postgresql+psycopg://" + DATABASE_URL[len("postgresql://"):]
+from urllib.parse import unquote
+
+from sqlalchemy.engine import URL
+
+
+def normalize_database_url(raw: str) -> str:
+    """Select the psycopg driver and tolerate an unescaped '@' in the password
+    (the host is whatever follows the LAST '@'). Passwords with '/', '#' or '?' still need %-encoding."""
+    raw = raw.strip().strip("\"'")
+    if raw.startswith("sqlite"):
+        return raw
+    scheme, _, rest = raw.partition("://")
+    if not scheme.startswith("postgres") or "@" not in rest:
+        return raw
+    cred, hostpart = rest.rsplit("@", 1)
+    user, _, password = cred.partition(":")
+    hostport, _, db = hostpart.partition("/")
+    host, _, port = hostport.partition(":")
+    return URL.create("postgresql+psycopg", username=unquote(user), password=unquote(password) if password else None,
+                      host=host, port=int(port) if port else None,
+                      database=db.split("?")[0] or None).render_as_string(hide_password=False)
+
+
+DATABASE_URL = normalize_database_url(os.environ.get("DATABASE_URL", "sqlite:///./dev.db"))
 
 ADMIN_API_KEY = os.environ.get("ADMIN_API_KEY", "")
 SIGNING_SECRET = os.environ.get("SESSION_CAPABILITY_SIGNING_SECRET", "")
