@@ -10,3 +10,6 @@ node_modules/
 phonon.py
 FormFilling/
 forms/ocr/form_pages.pdf
+dev.db
+*.db
+.pytest_cache/
