@@ -30,3 +30,9 @@ Assamese, Bengali, English, Gujarati, Hindi, Kannada, Konkani, Malayalam, Marath
 1. SMS/OTP delivery provider for identity confirmation.
 2. Approved consent wording.
 3. Confirm HAL form fields after Document Intelligence OCR review.
+
+## Decisions (2026-10-25)
+- Caller ID: `+917965481417` (approved by user).
+- OTP identity step: dummy for now (any code accepted in dev; clearly marked, must be replaced before real use).
+- Consent: agent asks only whether it may fill the form and take the information.
+- Languages: all 13 listed above.
