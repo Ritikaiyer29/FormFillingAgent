@@ -1,0 +1,42 @@
+# Render Blueprint. Database is external (Supabase, Session pooler URL).
+services:
+  - type: web
+    name: formfilling-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_API_KEY
+        generateValue: true
+      - key: SESSION_CAPABILITY_SIGNING_SECRET
+        generateValue: true
+      - key: SESSION_CAPABILITY_TTL_SECONDS
+        value: "1800"
+      - key: TENANT_ID
+        value: hal-kanpur
+      - key: OTP_MODE
+        value: dummy
+      - key: CORS_ORIGINS
+        sync: false # the frontend URL, e.g. https://formfilling-web.onrender.com
+      - key: SARVAM_API_KEY
+        sync: false
+
+  - type: web
+    name: formfilling-web
+    runtime: node
+    rootDir: frontend
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start -- -p $PORT
+    envVars:
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: NEXT_PUBLIC_API_URL
+        sync: false # the API URL, e.g. https://formfilling-api.onrender.com
