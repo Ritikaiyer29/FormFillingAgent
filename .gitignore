@@ -9,3 +9,4 @@ node_modules/
 *.crdownload
 phonon.py
 FormFilling/
+forms/ocr/form_pages.pdf

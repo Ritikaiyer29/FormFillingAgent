@@ -5,7 +5,7 @@
   "source": {
     "document": "forms/HALForm.pdf",
     "pages": {"advertisement": "1-6", "form_a_iti": "7-8", "form_b_vocational": "10-11", "checklists": "7, 9"},
-    "extraction": "manual read of rendered pages; to be cross-checked with Sarvam Document Intelligence output"
+    "extraction": "manual read of rendered pages, cross-checked against Sarvam Document Intelligence (forms/ocr/out/document.md): same 17 rows (Form-A) and 22 rows (Form-B), same labels. OCR slips: row 1 Hindi label misread. Bounding boxes in forms/ocr/out/metadata/ for PDF overlay."
   },
   "default_language": "Hindi",
   "variants": {

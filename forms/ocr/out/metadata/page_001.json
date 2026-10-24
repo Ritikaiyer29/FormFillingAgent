@@ -1,0 +1,86 @@
+{
+  "page_num": 1,
+  "image_width": 2481,
+  "image_height": 3508,
+  "created_at": "2026-10-24T20:28:14.552241+00:00",
+  "blocks": [
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_1_block_000",
+      "coordinates": {
+        "x1": 149.0,
+        "y1": 139.0,
+        "x2": 610.0,
+        "y2": 394.0
+      },
+      "layout_tag": "header",
+      "confidence": 0.8726,
+      "reading_order": 1,
+      "text": "हिएलि\nHAL\n— A Maharatna CPSE —"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_1_block_001",
+      "coordinates": {
+        "x1": 1153.0,
+        "y1": 98.0,
+        "x2": 1543.0,
+        "y2": 157.0
+      },
+      "layout_tag": "header",
+      "confidence": 0.3711,
+      "reading_order": 2,
+      "text": "प्रपत्र-ए / Form-A"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_1_block_002",
+      "coordinates": {
+        "x1": 657.0,
+        "y1": 154.0,
+        "x2": 2276.0,
+        "y2": 397.0
+      },
+      "layout_tag": "headline",
+      "confidence": 0.4121,
+      "reading_order": 3,
+      "text": "एच.ए.एल., टी.ए.डी.-कानपुर में अप्रेंटिसशिप प्रशिक्षण के लिए\nआई.टी.आई. उत्तीर्ण उम्मीदवारों के चयन हेतु आवेदन पत्र\nApplication form for ITI Pass Candidate for Apprenticeship"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_1_block_003",
+      "coordinates": {
+        "x1": 1026.0,
+        "y1": 411.0,
+        "x2": 1795.0,
+        "y2": 542.0
+      },
+      "layout_tag": "section-title",
+      "confidence": 0.5107,
+      "reading_order": 4,
+      "text": "Training HAL, TAD-KANPUR\n(अंतिम तिथि/ Last Date: 30/01/2026)"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_1_block_004",
+      "coordinates": {
+        "x1": 124.0,
+        "y1": 573.0,
+        "x2": 2416.0,
+        "y2": 3346.0
+      },
+      "layout_tag": "table",
+      "confidence": 0.9819,
+      "reading_order": 5,
+      "text": "<table>\n<thead>\n<tr>\n<th>क्र. सं.<br/>Sl. No.</th>\n<th>विवरण/Details</th>\n<th colspan=\"6\">ब्योरा/Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>अप्रैलिस पंजीकरण संख्या<br/>Apprenticeship Registration Number</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>2</td>\n<td>उम्मीदवार का नाम (स्पष्ट अक्षरों में)<br/>Candidate Name (In block letters)</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>3</td>\n<td>पिता का नाम (स्पष्ट अक्षरों में)<br/>Father’s Name (In block letters)</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>4</td>\n<td>माता का नाम (स्पष्ट अक्षरों में)<br/>Mother’s Name (In block letters)</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>5</td>\n<td>जन्म तिथि/Date Of Birth</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>6</td>\n<td>लिंग/Gender</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>7</td>\n<td>आधार कार्ड संख्या/Aadhaar Card No.</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>8</td>\n<td>पैनकार्ड संख्या/PAN Card No.</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>9</td>\n<td>हाईस्कूल में प्राप्त कुल अंक<br/>Marks obtained in High School</td>\n<td>प्राप्तांक<br/>Marks Obtained ....................</td>\n<td colspan=\"6\">पूर्णांक<br/>Total Marks ....................</td>\n</tr>\n<tr>\n<td>10</td>\n<td>हाईस्कूल में प्राप्त प्रतिशत<br/>Percentage of Marks in High School</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>11</td>\n<td>आईटीआई संस्थान का नाम एंव पता सहित<br/>Name of ITI Institute and Address</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>12</td>\n<td>आईटीआई में ट्रेड/ ITI Trade</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>13</td>\n<td>आईटीआई उत्तीर्ण वर्ष/ Year of Passing ITI</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td rowspan=\"3\">14</td>\n<td rowspan=\"3\">आईटीआई में प्राप्त कुल अंक<br/>Marks obtained in ITI Exam</td>\n<td>सेमेस्टर I<br/>Semester I</td>\n<td>सेमेस्टर II<br/>Semester II</td>\n<td>सेमेस्टर III<br/>Semester III</td>\n<td>सेमेस्टर IV<br/>Semester IV</td>\n<td>कुल<br/>Total</td>\n</tr>\n<tr>\n<td>कुल<br/>Total</td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>प्राप्त अंक<br/>Marks Obtained</td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>15</td>\n<td>आईटीआई में प्राप्त प्रतिशत<br/>Percentage of Marks in ITI</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>16</td>\n<td>प्रमाणीकरण प्रकार (कृपया चिन्हित करें)।<br/>Certificate Type (Please Tick)</td>\n<td colspan=\"6\">NCVT ☐ SCVT ☐</td>\n</tr>\n<tr>\n<td>17</td>\n<td>जाति/Caste</td>\n<td colspan=\"6\"></td>\n</tr>\n</tbody>\n</table>"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_1_block_005",
+      "coordinates": {
+        "x1": 1159.0,
+        "y1": 3358.0,
+        "x2": 1382.0,
+        "y2": 3406.0
+      },
+      "layout_tag": "page-number",
+      "confidence": 0.4282,
+      "reading_order": 6,
+      "text": "Page No.1"
+    }
+  ]
+}

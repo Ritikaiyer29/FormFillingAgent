@@ -1,0 +1,112 @@
+{
+  "page_num": 4,
+  "image_width": 2481,
+  "image_height": 3508,
+  "created_at": "2026-10-24T20:28:14.872366+00:00",
+  "blocks": [
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_4_block_000",
+      "coordinates": {
+        "x1": 149.0,
+        "y1": 131.0,
+        "x2": 2354.0,
+        "y2": 2384.0
+      },
+      "layout_tag": "table",
+      "confidence": 0.9858,
+      "reading_order": 1,
+      "text": "<table>\n<tbody>\n<tr>\n<td rowspan=\"2\">18</td>\n<td rowspan=\"2\">आप किस श्रेणी से संबंध रखते हैं<br/>(कृपया सही का चिन्ह अंकित करें)<br/>Category (Please Tick ✓)</td>\n<td>अनुसूचित जाति Schedule Caste</td>\n<td>अनुसूचित जनजाति Schedule Tribe</td>\n<td>अन्य पिछड़ा वर्ग Other Backward Class</td>\n<td>शारीरिक रूप Physical Handicapped</td>\n<td>आर्थिक दृष्टि से दिव्यांग Economically Weaker Section</td>\n<td>सामान्य मेरिट General Merit</td>\n</tr>\n<tr>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>19</td>\n<td>एससी/ एसटी, ओबीसी(नान क्रिमिलेयर)<br/>(01/04/2023 के उपरान्त जारी)/ईडब्ल्यूएस<br/>(01/04/2025 के उपरान्त जारी)/ पीडब्लुडी (सक्षम अधिकारी द्वारा जारी) स्व प्रमाणित प्रमाण पत्र संलग्न करें<br/>Enclose Self-Attested Copy of Caste Certificate (SC/ST), OBC(NCL) (issued after 01/04/2023)/EWS (issued after 01/04/2025) /PWD by Competent Authority</td>\n<td colspan=\"2\">हाँ/Yes</td>\n<td colspan=\"3\">नहीं/No</td>\n</tr>\n<tr>\n<td>20</td>\n<td>01/01/2023 के बाद जारी किए गए अधिवास प्रमाणपत्र की स्व साक्ष्ययांकित प्रति संलग्न करें। Domicile Certificate (enclose self-attested copy of certificate) issued after 01/01/2023</td>\n<td colspan=\"2\">हाँ/Yes</td>\n<td colspan=\"3\">नहीं/No</td>\n</tr>\n<tr>\n<td rowspan=\"6\">21</td>\n<td rowspan=\"6\">पत्र-व्यवहार का पता Address for Communication</td>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td colspan=\"6\"></td>\n</tr>\n<tr>\n<td>पिन/PIN</td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td rowspan=\"3\">22</td>\n<td rowspan=\"3\">सम्पर्क/ Contact Details</td>\n<td colspan=\"6\">मोबाइल/Mobile :</td>\n</tr>\n<tr>\n<td colspan=\"6\">ई-मेल/E mail :-</td>\n</tr>\n<tr>\n<td colspan=\"6\">अभिभावक का मोबाईल नं./Parent’s Mobile No.: -</td>\n</tr>\n</tbody>\n</table>"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_4_block_001",
+      "coordinates": {
+        "x1": 250.0,
+        "y1": 2432.0,
+        "x2": 2256.0,
+        "y2": 2560.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.5342,
+      "reading_order": 2,
+      "text": "नोट- उम्मीदवारों को सलाह दी जाती है कि वे \"क्षेत्रीय कौशल विकास एवं उद्यमशीलता निदेशालय\" कानपुर (RDSDE, KANPUR)\nमें वोकेशनल अप्रेंटिस के रूप में पंजीकरण करायें और उस संख्या को आवेदन फॉर्म में दर्शायें।"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_4_block_002",
+      "coordinates": {
+        "x1": 251.0,
+        "y1": 2560.0,
+        "x2": 2264.0,
+        "y2": 2746.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.6982,
+      "reading_order": 3,
+      "text": "Note- Candidates have to register their name with Regional Directorate of Skill Development and\nEntrepreneurship (RDSDE), Kanpur-208022 and have to write the same in the column provided in the\napplication."
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_4_block_003",
+      "coordinates": {
+        "x1": 250.0,
+        "y1": 2766.0,
+        "x2": 2190.0,
+        "y2": 2900.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.3643,
+      "reading_order": 4,
+      "text": "मैं, एतद् द्वारा घोषणा करता/करती हूँ कि उपरोक्त सूचना मेरी जानकारी के अनुसार सही है।\nI certify that the foregoing information is correct and complete to the best of my knowledge and belief."
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_4_block_004",
+      "coordinates": {
+        "x1": 251.0,
+        "y1": 3026.0,
+        "x2": 826.0,
+        "y2": 3084.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.7661,
+      "reading_order": 5,
+      "text": "स्थान/Place:- ........................"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_4_block_005",
+      "coordinates": {
+        "x1": 252.0,
+        "y1": 3124.0,
+        "x2": 839.0,
+        "y2": 3186.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.752,
+      "reading_order": 6,
+      "text": "दिनांक/ Date: ...................."
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_4_block_007",
+      "coordinates": {
+        "x1": 1271.0,
+        "y1": 3184.0,
+        "x2": 2238.0,
+        "y2": 3314.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.4775,
+      "reading_order": 8,
+      "text": "उम्मीदवार के हस्ताक्षर (कृपया बॉक्स के अंदर करें)\nSignature of Candidate (Please sign within the box)"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_4_block_008",
+      "coordinates": {
+        "x1": 1147.0,
+        "y1": 3416.0,
+        "x2": 1370.0,
+        "y2": 3466.0
+      },
+      "layout_tag": "page-number",
+      "confidence": 0.8223,
+      "reading_order": 9,
+      "text": "Page No.2"
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "page_num": 2,
+  "image_width": 2481,
+  "image_height": 3508,
+  "created_at": "2026-10-24T20:28:14.770948+00:00",
+  "blocks": [
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_000",
+      "coordinates": {
+        "x1": 173.0,
+        "y1": 137.0,
+        "x2": 2362.0,
+        "y2": 2330.0
+      },
+      "layout_tag": "table",
+      "confidence": 0.9863,
+      "reading_order": 1,
+      "text": "<table>\n<tbody>\n<tr>\n<td rowspan=\"2\">18</td>\n<td rowspan=\"2\">आप किस श्रेणी से संबंध रखते हैं<br/>(कृपया सही का चिन्ह अंकित करें)<br/>Category (Please Tick ✓)</td>\n<td>अनुसूचित जाति<br/>Schedule Caste</td>\n<td>अनुसूचित<br/>जाति</td>\n<td>अनुसूचित<br/>जनजाति</td>\n<td>Schedule Tribe</td>\n<td>अन्य पिछड़ा<br/>वर्ग Other Backward Class</td>\n<td>शारीरिक रूप<br/>से दिव्यांग</td>\n<td>Physical Handicapped</td>\n<td>आर्थिक दृष्टि से<br/>कमजोर वर्ग<br/>Economically Weaker Section</td>\n<td>सामान्य<br/>मेरिट General Merit</td>\n</tr>\n<tr>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>19</td>\n<td>एससी/ एसटी, ओबीसी(नान क्रिमिलेयर)<br/>(01/04/2023 के उपरान्त जारी)/ईडब्ल्यूएस<br/>(01/04/2025 के उपरान्त जारी)/ पीडब्लुडी<br/>(सक्षम अधिकारी द्वारा जारी) स्व प्रमाणित प्रमाण<br/>पत्र संलग्न करें<br/>Enclose Self-Attested Copy of Caste<br/>Certificate (SC/ST), OBC(NCL) (issued<br/>after 01/04/2023)/EWS (issued after<br/>01/04/2025) /PWD by Competent<br/>Authority</td>\n<td colspan=\"2\">हाँ/Yes</td>\n<td colspan=\"6\">नहीं/No</td>\n</tr>\n<tr>\n<td>20</td>\n<td>01/01/2023 के बाद जारी किए गए अधिवास<br/>प्रमाणपत्र की स्व साक्ष्ययांकित प्रति संलग्न करें।<br/>Domicile Certificate (enclose self-attested<br/>copy of certificate) issued after<br/>01/01/2023</td>\n<td colspan=\"2\">हाँ/Yes</td>\n<td colspan=\"6\">नहीं/No</td>\n</tr>\n<tr>\n<td rowspan=\"6\">21</td>\n<td rowspan=\"6\">पत्र-व्यवहार का पता<br/>Address for Communication</td>\n<td colspan=\"8\"></td>\n</tr>\n<tr>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>पिन/PIN</td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td rowspan=\"3\">22</td>\n<td rowspan=\"3\">संपर्क/Contact Details</td>\n<td colspan=\"8\">मोबाईल/Mobile :</td>\n</tr>\n<tr>\n<td colspan=\"8\">ई-मेल/E mail :-</td>\n</tr>\n<tr>\n<td colspan=\"8\">अभिभावक का मोबाईल नं./Parent’s Mobile No.</td>\n</tr>\n</tbody>\n</table>"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_001",
+      "coordinates": {
+        "x1": 251.0,
+        "y1": 2382.0,
+        "x2": 2310.0,
+        "y2": 2510.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.625,
+      "reading_order": 2,
+      "text": "नोट- उम्मीदवारों को सलाह दी जाती है कि वे पोर्टल पर अप्रेंटिस के रूप में पंजीकरण करायें और उस संख्या को आवेदन फॉर्म में दर्शायें\n(वेबसाइट का नाम- www.apprenticeshipindia.gov.in)।"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_002",
+      "coordinates": {
+        "x1": 251.0,
+        "y1": 2512.0,
+        "x2": 2288.0,
+        "y2": 2634.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.6875,
+      "reading_order": 3,
+      "text": "Note- Candidates have to register on Apprenticeship Portal (Website - www.apprenticeshipindia.gov.in)\nand have to write the same in the column provided in the application."
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_003",
+      "coordinates": {
+        "x1": 251.0,
+        "y1": 2648.0,
+        "x2": 1688.0,
+        "y2": 2716.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.6704,
+      "reading_order": 4,
+      "text": "मैं, एतद् द्वारा घोषणा करता/करती हूँ कि उपरोक्त सूचना मेरी जानकारी के अनुसार सही है।"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_004",
+      "coordinates": {
+        "x1": 252.0,
+        "y1": 2720.0,
+        "x2": 2194.0,
+        "y2": 2782.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.5806,
+      "reading_order": 5,
+      "text": "I certify that the foregoing information is correct and complete to the best of my knowledge and belief."
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_005",
+      "coordinates": {
+        "x1": 252.0,
+        "y1": 2938.0,
+        "x2": 847.0,
+        "y2": 2996.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.7026,
+      "reading_order": 6,
+      "text": "स्थान/ Place:...................................."
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_006",
+      "coordinates": {
+        "x1": 251.0,
+        "y1": 3026.0,
+        "x2": 847.0,
+        "y2": 3096.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.7129,
+      "reading_order": 7,
+      "text": "दिनांक/Date ...................................."
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_007",
+      "coordinates": {
+        "x1": 1388.0,
+        "y1": 2872.0,
+        "x2": 2182.0,
+        "y2": 3120.0
+      },
+      "layout_tag": "image",
+      "confidence": 0.3293,
+      "reading_order": 8,
+      "text": "यह एक खाली आयताकार बॉक्स है।"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_008",
+      "coordinates": {
+        "x1": 1297.0,
+        "y1": 3166.0,
+        "x2": 2264.0,
+        "y2": 3300.0
+      },
+      "layout_tag": "paragraph",
+      "confidence": 0.4302,
+      "reading_order": 9,
+      "text": "उम्मीदवार के हस्ताक्षर (कृपया बॉक्स के अंदर करें)\nSignature of Candidate (Please sign within the box)"
+    },
+    {
+      "block_id": "20261024_89647340-1cb5-4f11-90d6-46b432f09ddf_2_block_009",
+      "coordinates": {
+        "x1": 1159.0,
+        "y1": 3378.0,
+        "x2": 1382.0,
+        "y2": 3432.0
+      },
+      "layout_tag": "page-number",
+      "confidence": 0.7324,
+      "reading_order": 10,
+      "text": "Page No.2"
+    }
+  ]
+}
