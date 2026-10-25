@@ -118,7 +118,7 @@ def validate_scalar(path: str, spec: dict, raw, ctx: dict | None = None):
         if ref and ctx.get(ref) is not None and n > Decimal(str(ctx[ref])):
             raise ValidationError(path, "exceeds_total", "Marks obtained cannot be more than total marks.")
         if "allowed" in rules and int(n) not in rules["allowed"]:
-            raise ValidationError(path, "not_allowed", f"Allowed values: {rules['allowed']}.")
+            raise ValidationError(path, "not_allowed", "Only these values are accepted: " + ", ".join(str(a) for a in rules["allowed"]) + ". Tell the candidate this and ask again.")
         return int(n) if t == "integer" else float(n)
     v = _normalize(str(raw), rules.get("normalize"))
     if "min_len" in rules and len(v) < rules["min_len"]:
@@ -222,7 +222,10 @@ def missing_fields(data: dict, variant: str | None) -> list[str]:
 def unconfirmed_fields(data: dict, variant: str | None) -> list[str]:
     out = []
     for spec in SCHEMA["fields"]:
-        if spec.get("confirm") in (False, None) or spec.get("derived") or not field_visible(spec, data, variant):
+        c = spec.get("confirm")
+        # Only values that are risky to mishear need a read-back; "spell_on_request" etc. do not block submission.
+        needs = c is True or (isinstance(c, str) and c.startswith(("read_back", "explicit")))
+        if not needs or spec.get("derived") or not field_visible(spec, data, variant):
             continue
         e = data.get(spec["id"])
         if e and e.get("status") != "confirmed":

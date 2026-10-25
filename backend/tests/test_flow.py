@@ -154,3 +154,19 @@ def test_call_end_webhook(client):
     body["connectivity_status"] = "no_answer"
     client.post("/webhooks/call?t=hook-secret", json=body)
     assert client.get(f"/api/sessions/{sid}", headers=ADMIN).json()["call_status"] == "no_answer"
+
+
+def test_agent_chosen_variant_unlocks_its_fields_and_same_number(client):
+    sid, h = new_session(client, variant=None)
+    onboard(client, h)
+    save = lambda f, v, c=False: client.post("/tools/save", json={"field_id": f, "value": v, "confirmed": c}, headers=h).json()
+    assert not save("iti_institute", "Govt ITI Kanpur Nagar")["saved"]          # type not chosen yet
+    assert save("variant", "ITI")["saved"]
+    assert client.get(f"/api/sessions/{sid}", headers=ADMIN).json()["variant"] == "ITI"
+    assert save("iti_institute", "Govt ITI Kanpur Nagar")["saved"]              # no confirmation of the type needed
+    r = save("iti_pass_year", "2022")
+    assert not r["saved"] and "2023" in r["agent_message"]
+    assert save("mobile", "SAME_AS_CALLED")["saved"]
+    snap = client.get(f"/api/sessions/{sid}", headers=ADMIN).json()
+    assert snap["data"]["mobile"]["value"] == "9876543210"
+    assert "variant" not in snap["missing"]

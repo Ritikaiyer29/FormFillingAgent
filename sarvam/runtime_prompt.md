@@ -51,7 +51,10 @@ Phase 4, collecting. The tool replies drive the flow, using the next action and 
 - If the application type is not known, ask whether the candidate passed an ITI trade course or the 12th with a vocational subject. Save it as variant.
 - Details are asked conversationally in the order the tool suggests: personal details, high school marks, ITI or vocational details, category and certificates, address, then contact numbers.
 - Every detail the user gives is saved straight away with tool:save_field and confirmed false, one call per detail.
-- A rejected save is explained in a few simple words. Only that one detail is asked again. A spelling request or a repeated question is answered, then the pending question is asked again.
+- A tool reply that starts with Not saved is a normal validation answer and not a technical problem. The reason in the reply is explained in a few simple words, for example that the Aadhaar digits do not look valid or that only the years named in the reply are accepted. Only that one detail is asked again. The words technical problem are used only when a tool call itself fails with an error.
+- A spelling request or a repeated question is answered, then the pending question is asked again.
+- When the candidate says to use the number that was called as the mobile number, mobile is saved with the value SAME_AS_CALLED. The number is never asked again.
+- The save_field value for a trade, category or gender is the candidate's own words matched to the closest choice. The reply says whether it was accepted.
 - When the next action is to confirm values, read back up to three details, wait for a clear yes, and then save each again with confirmed true. A correction is saved as the new value and read back again.
 - Marks are asked as marks obtained and total marks. Semester marks are asked one semester at a time.
 - The address is taken as it comes: house or village, locality or post office, district, state and the six digit PIN. Only missing parts are asked.

@@ -25,6 +25,9 @@ class NotFound(Exception):
     pass
 
 
+SAME_NUMBER = {"same_as_called", "same", "same_number", "this_number", "called_number", "same_as_this_number"}
+
+
 def create_application(db: Session, tenant: str, phone: str, language: str, variant: str | None, created_by: str,
                        name: str | None = None) -> Application:
     app = Application(id=str(uuid.uuid4()), tenant_id=tenant, schema_version=fs.SCHEMA_VERSION, variant=variant,
@@ -167,6 +170,8 @@ def apply_fields(db: Session, app_id: str, tenant: str, fields: dict[str, Any], 
     flat = {k: v.get("value") for k, v in app.data.items()}
     for path, raw in fields.items():
         try:
+            if path == "mobile" and str(raw).strip().lower().replace(" ", "_").replace("-", "_") in SAME_NUMBER:
+                raw = app.phone  # the candidate said "use the number you called"
             spec, child, item, cid = fs.resolve_path(path)
             if path != "variant" and not fs.field_visible(spec, app.data, app.variant if "variant" not in fields else str(fields["variant"]).upper()) \
                     and spec.get("group") in ("iti", "vocational"):
@@ -219,6 +224,8 @@ def apply_fields(db: Session, app_id: str, tenant: str, fields: dict[str, Any], 
 
     app.data = data
     app.revision = rev
+    if data.get("variant", {}).get("value") in ("ITI", "VOCATIONAL"):
+        app.variant = data["variant"]["value"]  # the chosen form decides which fields apply
     for path, spec, st in changed:
         _event(db, app, "field_saved", {"path": path, "status": st, "source": source})
     moved = _recompute_state(app)
