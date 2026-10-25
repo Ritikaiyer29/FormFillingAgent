@@ -27,6 +27,8 @@ services:
         sync: false # the frontend URL, e.g. https://formfilling-web.onrender.com
       - key: SARVAM_API_KEY
         sync: false
+      - key: SARVAM_VOICE_API_KEY
+        sync: false
       - key: SARVAM_ORG_ID
         sync: false
       - key: SARVAM_WORKSPACE_ID

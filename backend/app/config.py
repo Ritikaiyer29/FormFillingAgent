@@ -34,7 +34,9 @@ OTP_MODE = os.environ.get("OTP_MODE", "dummy")
 DUMMY_OTP = os.environ.get("DUMMY_OTP", "123456")
 # Outbound dispatch: one standing Sarvam campaign receives a one-user cohort per call.
 SARVAM_API_KEY = os.environ.get("SARVAM_API_KEY", "")
-SARVAM_ORG_ID = os.environ.get("SARVAM_ORG_ID", "")
+# Voice Agents workspace key (dashboard: Settings -> API Key). Different from SARVAM_API_KEY (speech/OCR APIs).
+SARVAM_VOICE_API_KEY = os.environ.get("SARVAM_VOICE_API_KEY", "")
+SARVAM_ORG_ID =os.environ.get("SARVAM_ORG_ID", "")
 SARVAM_WORKSPACE_ID = os.environ.get("SARVAM_WORKSPACE_ID", "")
 SARVAM_CAMPAIGN_ID = os.environ.get("SARVAM_CAMPAIGN_ID", "")
 # Shared secret in the call-end webhook URL (?t=...). Set on the API service and in the Sarvam campaign webhook URL.

@@ -149,7 +149,7 @@ function Session() {
     };
     const required = schema.fields.filter((f: any) => f.required && !f.derived && visibleField(f) && f.id !== "variant");
     const doneCount = required.filter((f: any) => !snap.missing.some((m: string) => m === f.id || m.startsWith(f.id + "."))).length;
-    const pct = required.length ? Math.round((100 * doneCount) / required.length) : 0;
+    const pct = variant && required.length ? Math.round((100 * doneCount) / required.length) : 0;
     const submitted = snap.state === "submitted";
     const called = snap.call_status !== "not_started";
 
@@ -157,7 +157,7 @@ function Session() {
       { label: "Call placed", done: called },
       { label: "Permission given", done: !!snap.consent_given },
       { label: "Identity checked", done: !!snap.otp_verified },
-      { label: `Details collected${snap.otp_verified ? ` (${doneCount} of ${required.length})` : ""}`, done: pct === 100 },
+      { label: `Details collected${variant ? ` (${doneCount} of ${required.length})` : ""}`, done: pct === 100 },
       { label: "Application submitted", done: submitted },
     ];
     const nowIdx = steps.findIndex((s) => !s.done);
@@ -196,7 +196,7 @@ function Session() {
                   <h2>{variant ? L(schema.variants[variant].label) : "Apprenticeship application form"}</h2>
                   <p>Technical Training Institute, Transport Aircraft Division, HAL Kanpur</p>
                 </div>
-                <select value={lang} onChange={(e) => setLang(e.target.value as Lang)} style={{ background: "#fff" }} aria-label="Form language">
+                <select value={lang} onChange={(e) => setLang(e.target.value as Lang)} style={{ background: "#fff", color: "#16202a" }} aria-label="Form language">
                   <option value="en">English</option><option value="hi">हिन्दी</option>
                 </select>
               </div>

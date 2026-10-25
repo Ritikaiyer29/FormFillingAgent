@@ -111,7 +111,7 @@ def place_call(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(d
     import time
 
     import httpx
-    if not (config.SARVAM_API_KEY and config.SARVAM_ORG_ID and config.SARVAM_WORKSPACE_ID and config.SARVAM_CAMPAIGN_ID):
+    if not (config.SARVAM_VOICE_API_KEY and config.SARVAM_ORG_ID and config.SARVAM_WORKSPACE_ID and config.SARVAM_CAMPAIGN_ID):
         raise HTTPException(503, "Calling is not set up yet.")
     app_ = svc.load(db, sid, tenant, lock=True)
     if app_.state == "submitted":
@@ -129,7 +129,7 @@ def place_call(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(d
                        "app_variables": {"auth_header": f"Bearer {token}"},
                        "app_overrides": {"initial_language_name": language}}]}
     try:
-        r = httpx.post(url, json=body, headers={"X-API-Key": config.SARVAM_API_KEY}, timeout=25)
+        r = httpx.post(url, json=body, headers={"X-API-Key": config.SARVAM_VOICE_API_KEY}, timeout=25)
     except httpx.HTTPError:
         r = None
     if r is None or r.status_code >= 300:
