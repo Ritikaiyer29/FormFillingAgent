@@ -32,4 +32,10 @@ TENANT_ID = os.environ.get("TENANT_ID", "hal-kanpur")
 # Dummy OTP: the value DUMMY_OTP is accepted. Never enable for real callers.
 OTP_MODE = os.environ.get("OTP_MODE", "dummy")
 DUMMY_OTP = os.environ.get("DUMMY_OTP", "123456")
-CORS_ORIGINS = [o for o in os.environ.get("CORS_ORIGINS", "http://localhost:3000").split(",") if o]
+# Outbound dispatch: one standing Sarvam campaign receives a one-user cohort per call.
+SARVAM_API_KEY = os.environ.get("SARVAM_API_KEY", "")
+SARVAM_ORG_ID = os.environ.get("SARVAM_ORG_ID", "")
+SARVAM_WORKSPACE_ID = os.environ.get("SARVAM_WORKSPACE_ID", "")
+SARVAM_CAMPAIGN_ID = os.environ.get("SARVAM_CAMPAIGN_ID", "")
+SARVAM_BASE = os.environ.get("SARVAM_BASE", "https://apps.sarvam.ai/api/scheduling/v1")
+CORS_ORIGINS =[o for o in os.environ.get("CORS_ORIGINS", "http://localhost:3000").split(",") if o]

@@ -102,6 +102,41 @@ def issue_capability(sid: str, tenant: str = Depends(auth.require_admin), db=Dep
     return {"token": token, "authorization_header": f"Bearer {token}", "expires_in": config.CAPABILITY_TTL}
 
 
+@app.post("/api/sessions/{sid}/call")
+def place_call(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(db_session)):
+    """Dial the candidate: mint the per-call token and stream a one-user cohort into the standing campaign."""
+    import time
+
+    import httpx
+    if not (config.SARVAM_API_KEY and config.SARVAM_ORG_ID and config.SARVAM_WORKSPACE_ID and config.SARVAM_CAMPAIGN_ID):
+        raise HTTPException(503, "Calling is not configured: set SARVAM_API_KEY, SARVAM_ORG_ID, SARVAM_WORKSPACE_ID and SARVAM_CAMPAIGN_ID.")
+    app_ = svc.load(db, sid, tenant, lock=True)
+    if app_.state == "submitted":
+        raise svc.Conflict("Already submitted.")
+    app_.capability_nonce = str(uuid.uuid4())
+    app_.language_locked = True
+    token = auth.mint(app_.id, tenant, app_.capability_nonce, auth.AUD_TOOLS, auth.TOOL_ACTIONS, config.CAPABILITY_TTL)
+    phone, language = app_.phone, app_.call_language
+    app_.call_status = "dialing"
+    db.commit()
+    url = (f"{config.SARVAM_BASE}/orgs/{config.SARVAM_ORG_ID}/workspaces/{config.SARVAM_WORKSPACE_ID}"
+           f"/campaigns/{config.SARVAM_CAMPAIGN_ID}/cohorts/stream")
+    body = {"name": f"call-{sid[:8]}-{int(time.time())}",
+            "users": [{"user_phone_number": phone, "user_identifier": sid,
+                       "app_variables": {"auth_header": f"Bearer {token}"},
+                       "app_overrides": {"initial_language_name": language}}]}
+    try:
+        r = httpx.post(url, json=body, headers={"X-API-Key": config.SARVAM_API_KEY}, timeout=25)
+    except httpx.HTTPError:
+        r = None
+    if r is None or r.status_code >= 300:
+        app_ = svc.load(db, sid, tenant, lock=True)
+        app_.call_status, app_.capability_nonce = "not_started", None
+        db.commit()
+        raise HTTPException(502, f"Sarvam refused the call request ({r.status_code if r is not None else 'no response'}).")
+    return {"dialing": True, "cohort_id": r.json().get("cohort_id")}
+
+
 @app.post("/api/sessions/{sid}/revoke")
 def revoke(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(db_session)):
     app_ = svc.load(db, sid, tenant, lock=True)

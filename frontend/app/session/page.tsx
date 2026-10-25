@@ -20,7 +20,8 @@ function Session() {
   const [conn, setConn] = useState<"live" | "reconnecting">("reconnecting");
   const [edit, setEdit] = useState<{ path: string; value: string; rev: number } | null>(null);
   const [conflict, setConflict] = useState("");
-  const [callToken, setCallToken] = useState("");
+  const [calling, setCalling] = useState(false);
+  const [notice, setNotice] = useState("");
   const revRef = useRef(-1);
   const lastEvent = useRef(0);
 
@@ -134,10 +135,13 @@ function Session() {
       <div className="card">
         <div className="row" style={{ justifyContent: "space-between" }}>
           <span>Progress: {doneCount} of {required.length} required fields</span>
-          {!locked && <button className="ghost" onClick={async () => {
-            try { const c = await api(`/api/sessions/${id}/capability`, { method: "POST" }); setCallToken(c.authorization_header); }
+          {!locked && <button disabled={calling} onClick={async () => {
+            if (!confirm(`Place a call to ${snap.phone} now? This uses call credits.`)) return;
+            setCalling(true); setErr("");
+            try { await api(`/api/sessions/${id}/call`, { method: "POST" }); setNotice("Call requested. The phone should ring shortly. Fields appear here as they are saved."); }
             catch (e: any) { setErr(e.message); }
-          }}>Create call token</button>}
+            setTimeout(() => setCalling(false), 20000);
+          }}>{calling ? "Calling..." : "Place call"}</button>}
           <label>Form language
             <select value={lang} onChange={(e) => setLang(e.target.value as Lang)}>
               <option value="en">English</option><option value="hi">हिन्दी (labels)</option>
@@ -150,10 +154,7 @@ function Session() {
           {snap.help_requested && <span className="warn"> · human callback requested</span>}
         </p>
       </div>
-      {callToken && <div className="card">
-        <p style={{ margin: 0 }}>Call token (valid 30 minutes, this application only). Creating a new one replaces it.</p>
-        <textarea readOnly rows={3} style={{ width: "100%" }} value={callToken} onFocus={(e) => e.target.select()} />
-      </div>}
+      {notice && <div className="banner">{notice}</div>}
       {conflict && <div className="banner">{conflict} <button className="ghost" onClick={() => setConflict("")}>Dismiss</button></div>}
       {err && <p className="err">{err}</p>}
       {snap.warnings.map((w: any, i: number) => <p key={i} className="warn">⚠ {w.message}</p>)}
