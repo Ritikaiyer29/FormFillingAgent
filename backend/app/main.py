@@ -6,7 +6,7 @@ from typing import Any
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel, Field
 from starlette.concurrency import run_in_threadpool
 
@@ -90,6 +90,19 @@ def list_sessions(tenant: str = Depends(auth.require_admin), db=Depends(db_sessi
 @app.get("/api/sessions/{sid}")
 def get_session(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(db_session)):
     return svc.snapshot(svc.load(db, sid, tenant))
+
+
+@app.get("/api/sessions/{sid}/form.pdf")
+def form_pdf(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(db_session)):
+    """The candidate's answers placed on the real HAL form."""
+    from . import pdfform
+    app_ = svc.load(db, sid, tenant)
+    if app_.variant not in pdfform.LAYOUT:
+        raise HTTPException(409, "The form type is not known yet.")
+    ops = pdfform.render_ops(app_.data, fs.compute_derived(app_.data), app_.variant)
+    name = ((app_.data.get("candidate_name") or {}).get("value") or "application").replace(" ", "_")
+    return Response(pdfform.build_pdf(ops, app_.variant), media_type="application/pdf",
+                    headers={"Content-Disposition": f'attachment; filename="HAL_{app_.variant}_{name}.pdf"'})
 
 
 @app.post("/api/sessions/{sid}/capability")

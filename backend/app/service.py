@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from . import config
 from . import formschema as fs
 from .db import AppEvent, Application, Operation, now
+from .pdfform import LAYOUT, render_ops
 
 MAX_OTP_ATTEMPTS = 5
 
@@ -96,7 +97,9 @@ def snapshot(app: Application) -> dict:
     return {
         "id": app.id, "schema_version": app.schema_version, "variant": app.variant, "state": app.state,
         "call_status": app.call_status, "delivery_status": app.delivery_status, "revision": app.revision,
-        "data": app.data, "derived": derived, "missing": fs.missing_fields(app.data, app.variant),
+        "data": app.data, "derived": derived,
+        "form": {"pages": LAYOUT[app.variant]["pages"] if app.variant in LAYOUT else [], "ops": render_ops(app.data, derived, app.variant)},
+        "missing": fs.missing_fields(app.data, app.variant),
         "unconfirmed": fs.unconfirmed_fields(app.data, app.variant), "warnings": fs.warnings_for(app.data),
         "consent_given": app.consent_given, "otp_verified": app.otp_verified, "help_requested": app.help_requested,
         "call_language": app.call_language, "language_locked": app.language_locked, "phone": app.phone,

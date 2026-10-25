@@ -170,3 +170,20 @@ def test_agent_chosen_variant_unlocks_its_fields_and_same_number(client):
     snap = client.get(f"/api/sessions/{sid}", headers=ADMIN).json()
     assert snap["data"]["mobile"]["value"] == "9876543210"
     assert "variant" not in snap["missing"]
+
+
+def test_filled_form_ops_and_pdf(client):
+    sid, h = new_session(client)
+    onboard(client, h)
+    client.post("/tools/save", json={"field_id": "candidate_name", "value": "ravi kumar"}, headers=h)
+    client.post("/tools/save", json={"field_id": "category", "value": "OBC"}, headers=h)
+    snap = client.get(f"/api/sessions/{sid}", headers=ADMIN).json()
+    assert snap["form"]["pages"] == ["a1", "a2"]
+    texts = {o["path"]: o for o in snap["form"]["ops"]}
+    assert texts["candidate_name"]["lines"] == ["RAVI KUMAR"] and texts["candidate_name"]["page"] == 0
+    assert texts["category"]["kind"] == "tick" and texts["category"]["page"] == 1
+    r = client.get(f"/api/sessions/{sid}/form.pdf", headers=ADMIN)
+    assert r.status_code == 200 and r.content.startswith(b"%PDF") and "attachment" in r.headers["content-disposition"]
+    unknown, _ = new_session(client, variant=None)
+    assert client.get(f"/api/sessions/{unknown}", headers=ADMIN).json()["form"]["ops"] == []
+    assert client.get(f"/api/sessions/{unknown}/form.pdf", headers=ADMIN).status_code == 409

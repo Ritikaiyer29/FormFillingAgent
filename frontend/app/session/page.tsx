@@ -1,7 +1,8 @@
 "use client";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { API, api } from "../../lib/api";
+import { API, api, getKey } from "../../lib/api";
+import { FormPaper } from "../../lib/formpaper";
 import { CALL_LABEL, Shell, STATE_LABEL } from "../../lib/shell";
 
 type Lang = "en" | "hi";
@@ -58,6 +59,7 @@ function Session() {
   const [live, setLive] = useState(false);
   const [edit, setEdit] = useState<{ path: string; value: string; rev: number } | null>(null);
   const [calling, setCalling] = useState(false);
+  const [view, setView] = useState<"form" | "list">("form");
   const [fresh, setFresh] = useState<Record<string, boolean>>({});
   const revRef = useRef(-1);
   const lastEvent = useRef(0);
@@ -119,6 +121,18 @@ function Session() {
       await refresh();
     } catch (e: any) { setErr(e.message || "The call could not be started."); }
     setTimeout(() => setCalling(false), 15000);
+  };
+
+  const download = async () => {
+    try {
+      const res = await fetch(`${API}/api/sessions/${id}/form.pdf`, { headers: { Authorization: `Bearer ${getKey()}` } });
+      if (!res.ok) throw new Error();
+      const url = URL.createObjectURL(await res.blob());
+      const a = document.createElement("a");
+      const nm = (snap.data.candidate_name?.value || "application").replace(/\s+/g, "_");
+      a.href = url; a.download = `HAL_${snap.variant}_${nm}.pdf`; a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+    } catch { setErr("The PDF could not be prepared. Please try again."); }
   };
 
   const save = async () => {
@@ -189,6 +203,19 @@ function Session() {
             </p>
           </aside>
 
+          <div>
+          <div className="view-bar">
+            <div className="seg">
+              <button className={view === "form" ? "on" : ""} onClick={() => setView("form")}>HAL form</button>
+              <button className={view === "list" ? "on" : ""} onClick={() => setView("list")}>Details list</button>
+            </div>
+            <span className="grow" />
+            <button className={submitted || snap.state === "ready_for_submission" ? "primary" : "ghost"} disabled={!variant} onClick={download}>Download PDF</button>
+          </div>
+          {view === "form" ? (
+            variant ? <FormPaper snap={snap} fresh={fresh} /> :
+              <p className="empty card">The HAL form appears here as soon as the candidate says which course they passed (ITI or Vocational).</p>
+          ) : (
           <section className="doc">
             <div className="doc-head">
               <div className="row" style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
@@ -238,6 +265,8 @@ function Session() {
               <p className="foot-note">Photograph, signature and copies of documents are not taken on the phone. The candidate attaches them to the printed form.</p>
             </div>
           </section>
+          )}
+          </div>
         </div>
       </>
     );
