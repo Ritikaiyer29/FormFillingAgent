@@ -61,6 +61,7 @@ class NewSession(BaseModel):
     phone: str = Field(pattern=r"^\+?[0-9]{10,13}$")
     language: str = "Hindi"
     variant: str | None = None
+    candidate_name: str | None = None
 
 
 @app.post("/api/sessions", status_code=201)
@@ -71,7 +72,8 @@ def create_session(body: NewSession, tenant: str = Depends(auth.require_admin), 
         raise HTTPException(422, "variant must be ITI or VOCATIONAL")
     digits = "".join(c for c in body.phone if c.isdigit())
     phone = "+91" + digits[-10:] if len(digits) >= 10 else body.phone
-    return svc.snapshot(svc.create_application(db, tenant, phone, body.language, body.variant, "operator"))
+    return svc.snapshot(svc.create_application(db, tenant, phone, body.language, body.variant, "operator",
+                                               (body.candidate_name or "").strip() or None))
 
 
 @app.get("/api/sessions")
@@ -81,6 +83,7 @@ def list_sessions(tenant: str = Depends(auth.require_admin), db=Depends(db_sessi
     rows = db.execute(select(Application).where(Application.tenant_id == tenant)
                       .order_by(Application.created_at.desc()).limit(100)).scalars()
     return [{"id": a.id, "phone": a.phone, "state": a.state, "call_status": a.call_status, "variant": a.variant,
+             "candidate_name": (a.data.get("candidate_name") or {}).get("value"),
              "revision": a.revision, "created_at": a.created_at.isoformat()} for a in rows]
 
 
@@ -109,7 +112,7 @@ def place_call(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(d
 
     import httpx
     if not (config.SARVAM_API_KEY and config.SARVAM_ORG_ID and config.SARVAM_WORKSPACE_ID and config.SARVAM_CAMPAIGN_ID):
-        raise HTTPException(503, "Calling is not configured: set SARVAM_API_KEY, SARVAM_ORG_ID, SARVAM_WORKSPACE_ID and SARVAM_CAMPAIGN_ID.")
+        raise HTTPException(503, "Calling is not set up yet.")
     app_ = svc.load(db, sid, tenant, lock=True)
     if app_.state == "submitted":
         raise svc.Conflict("Already submitted.")
@@ -133,7 +136,10 @@ def place_call(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(d
         app_ = svc.load(db, sid, tenant, lock=True)
         app_.call_status, app_.capability_nonce = "not_started", None
         db.commit()
-        raise HTTPException(502, f"Sarvam refused the call request ({r.status_code if r is not None else 'no response'}).")
+        import logging
+        logging.getLogger("uvicorn.error").error("call dispatch failed: %s %s", r.status_code if r is not None else "no response",
+                                                 (r.text[:300] if r is not None else ""))
+        raise HTTPException(502, "The call could not be started. Please try again.")
     return {"dialing": True, "cohort_id": r.json().get("cohort_id")}
 
 

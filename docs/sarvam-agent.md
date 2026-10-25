@@ -42,3 +42,9 @@ The response mapping has NOT yet been seen end to end by a live agent; it is ver
 5. **Brand wording.** Intro and voicemail say "HAL Kanpur apprenticeship application form" without claiming HAL itself is calling. Confirm the organisation name you want spoken.
 6. **No dispatcher yet.** Nothing places calls. A test call needs your explicit go-ahead and a verified number.
 7. Platform quirks: `numbers_in_indic` was stored as true by the platform; `get` with `tool_specs` is not enabled for this org.
+
+## Outbound dispatch (UI "Place call")
+- Standing campaign `formfill-si-f81efbff-d96a` (scheduled, 0 users, ends 2027-01-20 because Sarvam caps campaigns at 90 days; create a new one then and update `SARVAM_CAMPAIGN_ID`).
+- `POST /api/sessions/{id}/call` mints the per-call token and streams a one-user cohort (`app_variables.auth_header`, `app_overrides.initial_language_name`) to the campaign via `X-API-Key`. Needs `SARVAM_API_KEY`, `SARVAM_ORG_ID`, `SARVAM_WORKSPACE_ID`, `SARVAM_CAMPAIGN_ID` on the API service.
+- Campaign dialling does not need the phone-number verification that `place_test_call` needs.
+- `place_test_call` cannot inject `auth_header` (it silently drops it), so it is not used for end-to-end tests.

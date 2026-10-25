@@ -25,11 +25,14 @@ class NotFound(Exception):
     pass
 
 
-def create_application(db: Session, tenant: str, phone: str, language: str, variant: str | None, created_by: str) -> Application:
+def create_application(db: Session, tenant: str, phone: str, language: str, variant: str | None, created_by: str,
+                       name: str | None = None) -> Application:
     app = Application(id=str(uuid.uuid4()), tenant_id=tenant, schema_version=fs.SCHEMA_VERSION, variant=variant,
                       phone=phone, call_language=language, data={}, created_by=created_by)
     if variant:
         app.data = {"variant": {"value": variant, "status": "captured", "source": "operator", "rev": 0}}
+    if name:  # an operator-typed name is only a hint; the candidate still confirms it on the call
+        app.data = {**app.data, "candidate_name": {"value": name[:100], "status": "captured", "source": "operator", "rev": 0}}
     db.add(app)
     db.flush()
     _event(db, app, "session_created", {})

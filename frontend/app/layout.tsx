@@ -1,6 +1,6 @@
 import "./globals.css";
 
-export const metadata = { title: "Form Filling Agent", description: "Voice-assisted form filling" };
+export const metadata = { title: "Apprentice Desk", description: "Voice-assisted apprenticeship application" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
