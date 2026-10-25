@@ -120,9 +120,9 @@ def place_call(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(d
     app_.language_locked = True
     token = auth.mint(app_.id, tenant, app_.capability_nonce, auth.AUD_TOOLS, auth.TOOL_ACTIONS, config.CAPABILITY_TTL)
     phone, language = app_.phone, app_.call_language
-    app_.call_status = "dialing"
+    svc.set_call_status(db, app_, "dialing")
     db.commit()
-    url = (f"{config.SARVAM_BASE}/orgs/{config.SARVAM_ORG_ID}/workspaces/{config.SARVAM_WORKSPACE_ID}"
+    url =(f"{config.SARVAM_BASE}/orgs/{config.SARVAM_ORG_ID}/workspaces/{config.SARVAM_WORKSPACE_ID}"
            f"/campaigns/{config.SARVAM_CAMPAIGN_ID}/cohorts/stream")
     body = {"name": f"call-{sid[:8]}-{int(time.time())}",
             "users": [{"user_phone_number": phone, "user_identifier": sid,
@@ -134,13 +134,48 @@ def place_call(sid: str, tenant: str = Depends(auth.require_admin), db=Depends(d
         r = None
     if r is None or r.status_code >= 300:
         app_ = svc.load(db, sid, tenant, lock=True)
-        app_.call_status, app_.capability_nonce = "not_started", None
+        app_.capability_nonce = None
+        svc.set_call_status(db, app_, "failed", {"reason": "dispatch"})
         db.commit()
         import logging
         logging.getLogger("uvicorn.error").error("call dispatch failed: %s %s", r.status_code if r is not None else "no response",
                                                  (r.text[:300] if r is not None else ""))
         raise HTTPException(502, "The call could not be started. Please try again.")
     return {"dialing": True, "cohort_id": r.json().get("cohort_id")}
+
+
+@app.post("/webhooks/call")
+async def call_ended(request: Request, t: str = Query("")):
+    """Sarvam call-end webhook. Authenticated by the secret in the URL; only updates call status."""
+    import hmac
+
+    from .db import Application
+    if not config.WEBHOOK_SECRET or not hmac.compare_digest(t, config.WEBHOOK_SECRET):
+        raise HTTPException(401, "Unauthorized")
+    p = await request.json()
+    if config.SARVAM_CAMPAIGN_ID and p.get("campaign_id") != config.SARVAM_CAMPAIGN_ID:
+        return {"ignored": True}
+    sid = p.get("user_identifier") or ""
+
+    def apply():
+        with SessionLocal() as db:
+            app_ = db.get(Application, sid)
+            if not app_:
+                return False
+            conn = p.get("connectivity_status")
+            if conn in ("busy", "no_answer", "failed"):
+                status = {"busy": "busy", "no_answer": "no_answer"}.get(conn, "failed")
+            elif p.get("completion_status") == "failed":
+                status = "failed"
+            else:
+                status = "completed"
+            outcome = (p.get("final_agent_variables") or {}).get("call_outcome") or None
+            app_.capability_nonce = None  # the call is over: the per-call token stops working
+            svc.set_call_status(db, app_, status, {"outcome": outcome, "duration": p.get("duration")})
+            db.commit()
+            return True
+
+    return {"updated": await run_in_threadpool(apply)}
 
 
 @app.post("/api/sessions/{sid}/revoke")

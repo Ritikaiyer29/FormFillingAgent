@@ -139,3 +139,18 @@ def test_wrong_otp_and_dummy_flag(client):
     client.post("/tools/consent", json={"granted": True}, headers=h)
     r = client.post("/tools/otp", json={"code": "000000"}, headers=h).json()
     assert r["otp_verified"] is False
+
+
+def test_call_end_webhook(client):
+    sid, h = new_session(client)
+    body = {"campaign_id": "camp-1", "user_identifier": sid, "completion_status": "completed",
+            "connectivity_status": "connected", "duration": 62.0, "final_agent_variables": {"call_outcome": "partial"}}
+    assert client.post("/webhooks/call?t=wrong", json=body).status_code == 401
+    assert client.post("/webhooks/call?t=hook-secret", json={**body, "campaign_id": "other"}).json() == {"ignored": True}
+    assert client.post("/webhooks/call?t=hook-secret", json=body).json() == {"updated": True}
+    snap = client.get(f"/api/sessions/{sid}", headers=ADMIN).json()
+    assert snap["call_status"] == "completed"
+    assert client.post("/tools/context", headers=h).status_code == 401  # token revoked when the call ended
+    body["connectivity_status"] = "no_answer"
+    client.post("/webhooks/call?t=hook-secret", json=body)
+    assert client.get(f"/api/sessions/{sid}", headers=ADMIN).json()["call_status"] == "no_answer"

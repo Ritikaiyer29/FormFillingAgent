@@ -7,6 +7,7 @@ export const STATE_LABEL: Record<string, string> = {
 };
 export const CALL_LABEL: Record<string, string> = {
   not_started: "Not called", dialing: "Calling", in_progress: "On call", completed: "Call finished",
+  failed: "Call failed", busy: "Line busy", no_answer: "Not answered",
 };
 
 function SignIn({ onDone, failed }: { onDone: () => void; failed: boolean }) {

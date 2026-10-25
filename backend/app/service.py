@@ -54,6 +54,13 @@ def _event(db: Session, app: Application, type_: str, payload: dict):
     db.add(AppEvent(application_id=app.id, revision=app.revision, type=type_, payload=payload))
 
 
+def set_call_status(db: Session, app: Application, status: str, detail: dict | None = None):
+    """Record a call lifecycle change (visible live to the operator). Caller commits."""
+    app.call_status = status
+    app.revision += 1
+    _event(db, app, "call_" + status, detail or {})
+
+
 def _recompute_state(app: Application) -> str | None:
     """Return the new state if it changed. Never moves out of submitted."""
     if app.state == "submitted":

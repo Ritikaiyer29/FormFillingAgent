@@ -6,3 +6,5 @@ os.environ["DATABASE_URL"] = "sqlite:///" + os.path.join(tempfile.mkdtemp(), "t.
 os.environ["ADMIN_API_KEY"] = "admin-test-key"
 os.environ["SESSION_CAPABILITY_SIGNING_SECRET"] = "x" * 32
 os.environ["OTP_MODE"] = "dummy"
+os.environ["WEBHOOK_SECRET"] = "hook-secret"
+os.environ["SARVAM_CAMPAIGN_ID"] = "camp-1"
