@@ -15,7 +15,7 @@ export default function Home() {
 
   const load = async () => {
     try { setRows(await api("/api/sessions")); setAuthed(true); setErr(""); }
-    catch (e: any) { setAuthed(false); setErr(e.status === 401 ? "" : e.message); }
+    catch (e: any) { setAuthed(false); setErr(e.status === 401 ? (getKey() ? "That admin key was not accepted. Copy ADMIN_API_KEY from the formfilling-api service on Render." : "") : e.message); }
   };
   useEffect(() => { if (getKey()) load(); }, []);
 
